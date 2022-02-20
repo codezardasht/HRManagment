@@ -20,6 +20,7 @@ class EmployeeController extends Controller
 
     public function import(Request $request)
     {
+        $this->activity_log('import csv','1','0');
         $path = $request->file('file')->store('temp');
         $path1 = storage_path('app').'/'.$path;
         Excel::import(new EmloyeeImport,$path1);
@@ -31,6 +32,7 @@ class EmployeeController extends Controller
     }
     public function export()
     {
+        $this->activity_log('export csv','1','0');
         return Excel::download(new EmployeeExport, 'employee.csv');
     }
 
@@ -142,22 +144,9 @@ class EmployeeController extends Controller
     {
         try{
             $this->activity_log('show Employee','1',$id);
-//            if($id == 'search')
-//            {
-//                $search = $request->get('q');
-//
-//                $getSingleEmployee = Employee::where('deleted','0');
-//
-//                if($search != "")
-//                {
-//                    $getSingleEmployee = $getSingleEmployee->where('name','LIKE','%'.$search.'%');
-//                }
-//
-//                $getSingleEmployee = $getSingleEmployee->get();
-//            }
-//            else{
+
                 $getSingleEmployee = Employee::select('name','age','salary','gender','hired_date','job_title')->find($id);
-//            }
+
 
 
             if($getSingleEmployee)
