@@ -102,16 +102,25 @@ class EmployeeController extends Controller
            'job_title'=>'required'
         ]);
 
-        $CreateEmployee = Employee::create([
-           'name'=>$request->name,
-           'age'=>$request->age,
-           'salary'=>$request->salary,
-           'job_title'=>$request->job_title,
-           'hired_date'=>$request->hired_date,
-           'manager_id'=>$request->manager_id,
-        ]);
+//        $CreateEmployee = Employee::create([
+//           'name'=>$request->name,
+//           'age'=>$request->age,
+//           'salary'=>$request->salary,
+//           'job_title'=>$request->job_title,
+//           'hired_date'=>$request->hired_date,
+//           'manager_id'=>$request->manager_id,
+//        ]);
 
-            if($CreateEmployee){
+        $CreateEmployee = new Employee();
+        $CreateEmployee->name = $request->name;
+        $CreateEmployee->age = $request->age;
+        $CreateEmployee->salary = $request->salary;
+        $CreateEmployee->job_title = $request->job_title;
+        $CreateEmployee->hired_date = $request->hired_date;
+        $CreateEmployee->manager_id = $request->manager_id;
+        $CreateEmployee->email = $request->email;
+
+            if($CreateEmployee->save()){
                 $id = $CreateEmployee->id;
 
                 $this->activity_log('Create Employee','1',$id);
@@ -129,7 +138,7 @@ class EmployeeController extends Controller
     } catch(\Illuminate\Database\QueryException $ex){
             return response()->json([
             'status'=>'fail',
-            'message'=>"Please Try Again"
+            'message'=>$ex->getMessage()
             ],404);
 }
     }
@@ -353,6 +362,7 @@ class EmployeeController extends Controller
                 'id'=>'required|numeric',
                 'name'=>'required',
                 'age'=>'required|numeric',
+                'email'=>'required|email',
                 'salary'=>'required',
                 'job_title'=>'required'
             ]);
@@ -374,6 +384,7 @@ class EmployeeController extends Controller
                 'job_title'=>$request->job_title,
                 'hired_date'=>$request->hired_date,
                 'manager_id'=>$request->manager_id,
+                'email'=>$request->email,
             ]);
 
             if($CreateEmployee){
