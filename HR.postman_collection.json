@@ -112,6 +112,11 @@
 							"key": "manager_id",
 							"value": "1",
 							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "z@gmail.com",
+							"type": "text"
 						}
 					]
 				},
