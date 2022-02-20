@@ -43,7 +43,14 @@ class removeLogFiles extends Command
 
 
 
-//        $deleteLogs = ActivityLog::where($date_now)
+        $deleteLogs = ActivityLog::where('created_at','<',Carbon::now()->subMonth(1))->delete();
+
+        if($deleteLogs)
+        {
+            echo "success";
+        }else{
+            echo "fail";
+        }
 
     }
 }
