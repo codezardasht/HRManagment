@@ -362,7 +362,7 @@ class EmployeeController extends Controller
                 'id'=>'required|numeric',
                 'name'=>'required',
                 'age'=>'required|numeric',
-                'email'=>'required|email',
+                'email'=>'required|unique:employe,email,'.$request->id
                 'salary'=>'required',
                 'job_title'=>'required'
             ]);
